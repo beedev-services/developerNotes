@@ -1,5 +1,7 @@
-@bg: #211400;
+@bg: #422802;
+@shadeBg: #8d6934b4;
 @font: #fff;
+@button: #09343f;
 
 .flexrow {
     display:  flex;
@@ -13,18 +15,58 @@
     justify-content: center;
     align-items: center;
 }
+a {
+    text-decoration: none;
+    color: @font;
+    padding: .5em;
+}
 
 
 body {
     .flexcolumn();
     background-color: @bg;
     background-image: url('/static/images/lined-paper-2.png');
+    color: @font;
 
     header {
         .flexcolumn();
     }
     main {
         .flexcolumn();
+
+        .row {
+            .flexrow();
+            justify-content: space-evenly;
+            align-items: flex-start;
+
+            width: 85%;
+
+            form {
+                .flexcolumn();
+                margin: 2em;
+                align-items: flex-start;
+                padding: 2em;
+                background-color: @shadeBg;
+                border-radius: 20%;
+
+
+                section {
+                    .flexrow();
+                    justify-content: space-between;
+                    margin: .5em;
+                    width: 300px;
+
+                    label {
+                        align-items: flex-start;
+                        margin: .5em;
+                    }
+                }
+                button {
+                    background-color: @button;
+                    color: @font;
+                }
+            }
+        }
     }
     footer {
         .flexcolumn();

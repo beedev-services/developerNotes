@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <link rel='stylesheet' href='https://beedevservices.github.io/beedev-css/framework/beedev.css'>
+    <link rel="stylesheet" href="{% static 'css/styles.css'%}">
+    <title>{{user.firstName}}'s Dashboard</title>
+</head>
+<body>
+    <header>
+        <h1>Welcome to your dashboard {{user.firstName}}</h1>
+        {% block menu %} {% include 'menu.html' %} {% endblock menu %}
+        {% block tabMenu %} {% include 'tabMenu.html' %} {% endblock tabMenu %}
+    </header>
+    <main>
+
+    </main>
+    <footer>
+        {% block footer %} {% include 'footer.html' %} {% endblock footer %}
+    </footer>
+    <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src='{% static "js/script.js"%}'></script>
+</body>
+</html>

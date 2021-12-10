@@ -10,13 +10,19 @@
   justify-content: center;
   align-items: center;
 }
+a {
+  text-decoration: none;
+  color: #fff;
+  padding: 0.5em;
+}
 body {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #211400;
+  background-color: #422802;
   background-image: url('/static/images/lined-paper-2.png');
+  color: #fff;
 }
 body header {
   display: flex;
@@ -29,6 +35,43 @@ body main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+body main .row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  width: 85%;
+}
+body main .row form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 2em;
+  align-items: flex-start;
+  padding: 2em;
+  background-color: #8d6934b4;
+  border-radius: 20%;
+}
+body main .row form section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0.5em;
+  width: 300px;
+}
+body main .row form section label {
+  align-items: flex-start;
+  margin: 0.5em;
+}
+body main .row form button {
+  background-color: #09343f;
+  color: #fff;
 }
 body footer {
   display: flex;
