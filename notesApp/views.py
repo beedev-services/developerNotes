@@ -87,7 +87,7 @@ def theAdmin(request):
     else:
         users = User.objects.all().values()
         user = User.objects.get(id=request.session['user_id'])
-        if user.level == 0:
+        if user.level == 9:
             context = {
                 "users": users,
             }
