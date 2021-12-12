@@ -1,7 +1,10 @@
 @bg: #422802;
-@shadeBg: #8d6934b4;
+@shadeBg: #96651b91;
+@border: #1c9bbb;
 @font: #fff;
 @button: #09343f;
+@buttonShade: #1c9bbb34;
+@message: #ff000048;
 
 .flexrow {
     display:  flex;
@@ -20,6 +23,26 @@ a {
     color: @font;
     padding: .5em;
 }
+table, th, td {
+    border: 1px solid @border;
+
+    a {
+        color: @font;
+        text-decoration: none;
+    }
+}
+table {
+    width: 85%;
+    margin: .5em;
+}
+th, td {
+    padding: .5em;
+    text-align: center;
+    font-size: 1.2em;
+}
+button {
+    background-color: @button;
+}
 
 
 body {
@@ -30,6 +53,12 @@ body {
 
     header {
         .flexcolumn();
+
+        nav {
+            a {
+                font-size: 1.1em;
+            }
+        }
     }
     main {
         .flexcolumn();
@@ -66,6 +95,51 @@ body {
                     color: @font;
                 }
             }
+        }
+        .messages {
+            .flexcolumn();
+            background-color: @message;
+            padding: 2em;
+            border-radius: 20%;
+        }
+        .tabMenu {
+            .flexrow();
+            justify-content: space-evenly;
+            background-color: @shadeBg;
+            padding: 1em;
+            width: 85%;
+            font-size: 1.2em;
+
+            .tabs {
+                overflow: hidden;
+                padding: 1em;
+            }
+            .tabs:hover {
+                background-color: @buttonShade;
+            }
+            .tabs.active {
+                border: 3px groove @border;
+            }
+        }
+        .tabContent {
+            display: none;
+            width: 85%;
+
+            .innerContent {
+                .flexcolumn();
+                width: 95%;
+
+                .content {
+                    .flexcolumn();
+                    width: 95%;
+                }
+            }
+        }
+        .adminColumn {
+            .flexcolumn();
+            background-color: @shadeBg;
+            padding: 0 1em 2em;
+            width: 85%;
         }
     }
     footer {

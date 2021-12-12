@@ -12,7 +12,9 @@
 </head>
 <body>
     <header>
-        {% block menu %} {% include 'menu.html' %} {% endblock menu %}
+        <nav>
+            {% block menu %} {% include 'menu.html' %} {% endblock menu %}{% block loggedMenu %} {% include 'loggedMenu.html' %} {% endblock loggedMenu %}
+        </nav>
     </header>
     <main>
 

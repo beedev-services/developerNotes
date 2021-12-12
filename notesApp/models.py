@@ -3,7 +3,6 @@ from django.core.validators import RegexValidator
 import re
 from django.db.models.fields import BooleanField, CharField
 from django.db.models.signals import post_save
-from django.contrib.auth.models import User
 from django.db.models.deletion import CASCADE
 
 class UserManager(models.Manager):
@@ -35,6 +34,7 @@ class User(models.Model):
     lastName = models.CharField(max_length=45)
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=45, unique=True)
+    level = models.IntegerField(default=0)
     password = models.CharField(max_length=45)
 
     objects = UserManager()
@@ -45,7 +45,7 @@ class User(models.Model):
         return self.username
 
 class Profile(models.Model):
-    discord = models.CharField(max_length=255, default=None)
+    discord = models.CharField(max_length=255, blank=True)
     user = models.OneToOneField(User, unique=True, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='profileImgs', default='bee.jpg')
     def __str__(self):
@@ -64,16 +64,18 @@ class Note(models.Model):
     subject = models.CharField(max_length=255)
     content = models.TextField()
     private = models.BooleanField(default=False)
-    upvote = models.IntegerField()
-    user = models.ForeignKey(User, related_name='noteUser', on_delete=CASCADE)
+    upvote = models.IntegerField(default=0)
+    resourceLink = models.CharField(max_length=255, blank=True)
+    author = models.ForeignKey(User, related_name='noteUser', on_delete=CASCADE)
     stack = models.ForeignKey(Stack, related_name='noteStack', on_delete=CASCADE)
     def __str__(self):
         return self.subject
 
 
 class Upload(models.Model):
-    uploadName = models.CharField(max_length=255)
+    uploadName = models.CharField(max_length=255, blank=True)
     upload = models.FileField(upload_to='docs', default='bee.jpg')
+    note = models.OneToOneField(Note, unique=True, on_delete=models.CASCADE)
     def __str__(self) -> str:
         return f'{self.note.subject} Upload'
 
@@ -85,7 +87,8 @@ def create_note_upload(sender, instance, created, **kwargs):
 class Comment(models.Model):
     comment = models.TextField()
     like = models.IntegerField()
-    user = models.ForeignKey(User, related_name='commentUser', on_delete=CASCADE)
+    resourceUrl = models.CharField(max_length=255, blank=True)
+    commenter = models.ForeignKey(User, related_name='commentUser', on_delete=CASCADE)
     note = models.ForeignKey(Note, related_name='commentNote', on_delete=CASCADE)
     commentCreatedAt = models.DateTimeField(auto_now_add=True)
     commentUpdatedAt = models.DateTimeField(auto_now=True)

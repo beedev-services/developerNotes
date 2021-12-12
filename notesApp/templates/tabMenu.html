@@ -2,14 +2,15 @@
 <html lang="en">
 <body>
     {% block tabMenu %}
-        <nav>
-            <a href="#tabs01">All</a>
-            <a href="#tabs02">Web Fundamentals</a>
-            <a href="#tabs03">Python</a>
-            <a href="#tabs04">MERN</a>
-            <a href="#tabs05">Java</a>
-            <a href="#tabs06">Projects & Algos</a>
-            <a href="#tabs07">Other</a>
+        <nav class='tabMenu'>
+            <a href="#tabs01" class='tabs' onclick="openStack(event, 'All')">All</a>
+            <a href="#tabs02" class='tabs' onclick="openStack(event, 'Web')">Web Fundamentals</a>
+            <a href="#tabs03" class='tabs' onclick="openStack(event, 'Python')">Python</a>
+            <a href="#tabs04" class='tabs' onclick="openStack(event, 'Mern')">MERN</a>
+            <a href="#tabs05" class='tabs' onclick="openStack(event, 'Java')">Java</a>
+            <a href="#tabs06" class='tabs' onclick="openStack(event, 'Projects')">Projects & Algos</a>
+            <a href="#tabs07" class='tabs' onclick="openStack(event, 'Other')">Other</a>
+            <a href="#tabs08" class='tabs' onclick="openStack(event, 'Your')">Your Notes</a>
         </nav>
     {% endblock tabMenu %}
 </body>

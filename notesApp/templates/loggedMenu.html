@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    {% block loggedMenu %}
+        <a href="/dashboard/">Dashboard</a>
+        <a href="/profile/">Profile</a>
+        <a href="/addNote">Add Note</a>
+        {% if user.level == 9 %}
+            <a href="/theAdmin/">Admin</a>
+        {% endif %}
+        <button><a href="/logout/">Logout</a></button>
+    {% endblock loggedMenu %}
+</body>
+</html>

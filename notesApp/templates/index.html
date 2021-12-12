@@ -8,14 +8,16 @@
     <link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
     <link rel='stylesheet' href='https://beedevservices.github.io/beedev-css/framework/beedev.css'>
     <link rel="stylesheet" href="{% static 'css/styles.css'%}">
-    <title>Document</title>
+    <title>Developer Notes</title>
 </head>
 <body>
     <header>
-        {% block menu %} {% include 'menu.html' %} {% endblock menu %}
+        <nav>
+            {% block menu %} {% include 'menu.html' %} {% endblock menu %}
+        </nav>
     </header>
     <main>
-        <nav>
+        <div>
             {% if messages %}
             <section class='messages'>
                 {% for message in messages %}
@@ -23,7 +25,7 @@
                 {% endfor %}
             </section>
             {% endif %}
-        </nav>
+        </div>
         <div class="row">
             <form action='/login/' method='post'>
                 {% csrf_token %}

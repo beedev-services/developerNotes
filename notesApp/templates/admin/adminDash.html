@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <link rel='stylesheet' href='https://beedevservices.github.io/beedev-css/framework/beedev.css'>
+    <link rel="stylesheet" href="{% static 'css/styles.css'%}">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <header>
+        <h1>Admin Dashboard</h1>
+        <nav>
+            {% block menu %} {% include 'menu.html' %} {% endblock menu %}{% block loggedMenu %} {% include 'loggedMenu.html' %} {% endblock loggedMenu %}
+        </nav>
+    </header>
+    <main>
+        <div class="adminColumn">
+            <h1>All Users</h1>
+            <table>
+                <tr>
+                    <th>Admin</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                </tr>
+                {% for u in users %}
+                    <tr>
+                        {% if u.level == 9 %}
+                            <td>Yes</td>
+                        {% endif %}
+                        {% if u.level == 0 %}
+                            <td>No</td>
+                        {% endif %}
+                        <td>{{u.firstName}}</td>
+                        <td>{{u.lastName}}</td>
+                        <td>{{u.username}}</td>
+                        <td>{{u.email}}</td>
+                        <td><a href="/theAdmin/{{u.id}}/makeAdmin">Make Admin</a></td>
+                    </tr>
+                    
+                {% endfor %}
+            </table>
+        </div>
+    </main>
+    <footer>
+        {% block footer %} {% include 'footer.html' %} {% endblock footer %}
+    </footer>
+    <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src='{% static "js/script.js"%}'></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <link rel='stylesheet' href='https://beedevservices.github.io/beedev-css/framework/beedev.css'>
+    <link rel="stylesheet" href="{% static 'css/styles.css'%}">
+    <title>{{note.subject}}</title>
+</head>
+<body>
+    <header>
+        <h1>{{note.subject}}</h1>
+        <nav>
+            {% block menu %} {% include 'menu.html' %} {% endblock menu %}{% block loggedMenu %} {% include 'loggedMenu.html' %} {% endblock loggedMenu %}
+        </nav>
+    </header>
+    <main>
+        <h2>{{note.subject}}</h2>
+        <h3>{% for stack in stacks %}
+            {% if note.stack_id == stack.id %}
+                {{stack.stackName}}
+            {% endif %}
+        {% endfor %} Stack</h3>
+        <p>{{note.content}}</p>
+        {% if note.resourceLink %}
+            <a href="{{note.resourceLink" target="_blank"> Resource Link</a>
+        {% endif %}
+        <p>{{note.author}} created this note. It has been liked or found useful {{note.upvote}} times</p>
+    </main>
+    <footer>
+        {% block footer %} {% include 'footer.html' %} {% endblock footer %}
+    </footer>
+    <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src='{% static "js/script.js"%}'></script>
+</body>
+</html>

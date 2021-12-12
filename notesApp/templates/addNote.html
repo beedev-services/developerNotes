@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <link rel='stylesheet' href='https://beedevservices.github.io/beedev-css/framework/beedev.css'>
+    <link rel="stylesheet" href="{% static 'css/styles.css'%}">
+    <title>Add Note</title>
+</head>
+<body>
+    <header>
+        <h1>Add Note</h1>
+        <nav>
+            {% block menu %} {% include 'menu.html' %} {% endblock menu %}{% block loggedMenu %} {% include 'loggedMenu.html' %} {% endblock loggedMenu %}
+        </nav>
+    </header>
+    <main>
+        <div class="row">
+            <form action="/createNote/" method='post'>
+                {% csrf_token %}
+                <section>
+                    <label for="subject">Subject: </label>
+                    <input type="text" name="subject">
+                </section>
+                <section>
+                    <label for="content">Note Content: </label>
+                    <textarea name="content"cols="30" rows="10"></textarea>
+                </section>
+                <section>
+                    <label for="private">Private Note? </label>
+                    <select name="private">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                </section>
+                <section>
+                    <label for="resourceLink">(Optional) Resource Link</label>
+                    <input type="text" name="resourceLink">
+                </section>
+                <section>
+                    <input type="hidden" name="author" value='{{user.id}}'>
+                </section>
+                <section>
+                    <label for="stack">Chose Stack:</label>
+                    <select name="stack">
+                        {% for stack in stacks %}
+                            <option value="{{stack.id}}">{{stack.stackName}}</option>
+                        {% endfor %}
+                    </select>
+                </section>
+                <button>Add Note</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+        {% block footer %} {% include 'footer.html' %} {% endblock footer %}
+    </footer>
+    <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src='{% static "js/script.js"%}'></script>
+</body>
+</html>

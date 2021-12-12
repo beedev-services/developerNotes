@@ -15,6 +15,30 @@ a {
   color: #fff;
   padding: 0.5em;
 }
+table,
+th,
+td {
+  border: 1px solid #1c9bbb;
+}
+table a,
+th a,
+td a {
+  color: #fff;
+  text-decoration: none;
+}
+table {
+  width: 85%;
+  margin: 0.5em;
+}
+th,
+td {
+  padding: 0.5em;
+  text-align: center;
+  font-size: 1.2em;
+}
+button {
+  background-color: #09343f;
+}
 body {
   display: flex;
   flex-direction: column;
@@ -29,6 +53,9 @@ body header {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+body header nav a {
+  font-size: 1.1em;
 }
 body main {
   display: flex;
@@ -53,7 +80,7 @@ body main .row form {
   margin: 2em;
   align-items: flex-start;
   padding: 2em;
-  background-color: #8d6934b4;
+  background-color: #96651b91;
   border-radius: 20%;
 }
 body main .row form section {
@@ -72,6 +99,63 @@ body main .row form section label {
 body main .row form button {
   background-color: #09343f;
   color: #fff;
+}
+body main .messages {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #ff000048;
+  padding: 2em;
+  border-radius: 20%;
+}
+body main .tabMenu {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #96651b91;
+  padding: 1em;
+  width: 85%;
+  font-size: 1.2em;
+}
+body main .tabMenu .tabs {
+  overflow: hidden;
+  padding: 1em;
+}
+body main .tabMenu .tabs:hover {
+  background-color: #1c9bbb34;
+}
+body main .tabMenu .tabs.active {
+  border: 3px groove #1c9bbb;
+}
+body main .tabContent {
+  display: none;
+  width: 85%;
+}
+body main .tabContent .innerContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 95%;
+}
+body main .tabContent .innerContent .content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 95%;
+}
+body main .adminColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #96651b91;
+  padding: 0 1em 2em;
+  width: 85%;
 }
 body footer {
   display: flex;

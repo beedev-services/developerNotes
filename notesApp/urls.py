@@ -5,6 +5,16 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.index),
+    path('login/', views.login),
+    path('reg/', views.register),
+    path('dashboard/', views.dashboard),
+    path('logout/', views.logout),
+    path('addNote/', views.addNote),
+    path('createNote/', views.createNote),
+    path('note/<int:note_id>/like/', views.likeNote),
+    path('note/<int:note_id>/view/', views.viewNote),
+    path('theAdmin/', views.theAdmin),
+    path('theAdmin/<int:user_id>/makeAdmin/', views.makeAdmin),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
