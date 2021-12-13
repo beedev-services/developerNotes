@@ -6,7 +6,9 @@
         <a href="/user/{{user.id}}/viewProfile/">Profile</a>
         <a href="/addNote">Add Note</a>
         {% if user.level == 9 %}
-            <a href="/theAdmin/">Admin</a>
+            <a href="/theAdmin/">Admin Dashboard</a>
+            <a href="/theAdmin/allUsers">All Users</a>
+            <a href="/theAdmin/allPosts">All Posts</a>
         {% endif %}
         <button><a href="/logout/">Logout</a></button>
     {% endblock loggedMenu %}

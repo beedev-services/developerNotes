@@ -10,7 +10,9 @@
             <a href="#tabs05" class='tabs' onclick="openStack(event, 'Java')">Java</a>
             <a href="#tabs06" class='tabs' onclick="openStack(event, 'Projects')">Projects & Algos</a>
             <a href="#tabs07" class='tabs' onclick="openStack(event, 'Other')">Other</a>
-            <a href="#tabs08" class='tabs' onclick="openStack(event, 'Your')">Your Notes</a>
+            {% if user.id %}
+                <a href="#tabs08" class='tabs' onclick="openStack(event, 'Your')">Your Notes</a>
+            {% endif %}
         </nav>
     {% endblock tabMenu %}
 </body>

@@ -18,7 +18,7 @@ a {
 table,
 th,
 td {
-  border: 1px solid #1c9bbb;
+  border: 1px solid #422802;
 }
 table a,
 th a,
@@ -44,8 +44,8 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #422802;
-  background-image: url('/static/images/lined-paper-2.png');
+  background-color: #6e8b61;
+  background-image: url('https://developer-notes.beedev-services.com/notesApp/static/images/lined-paper-2.png');
   color: #fff;
 }
 body header {
@@ -84,7 +84,7 @@ body main .row form {
   margin: 2em;
   align-items: flex-start;
   padding: 2em;
-  background-color: #96651b91;
+  background-color: #95bd8359;
   border-radius: 20%;
 }
 body main .row form section {
@@ -119,7 +119,7 @@ body main .tabMenu {
   justify-content: center;
   align-items: center;
   justify-content: space-evenly;
-  background-color: #96651b91;
+  background-color: #95bd8359;
   padding: 1em;
   width: 85%;
   font-size: 1.2em;
@@ -129,10 +129,10 @@ body main .tabMenu .tabs {
   padding: 1em;
 }
 body main .tabMenu .tabs:hover {
-  background-color: #1c9bbb34;
+  background-color: #96651b91;
 }
 body main .tabMenu .tabs.active {
-  border: 3px groove #1c9bbb;
+  border: 3px groove #422802;
 }
 body main .tabContent {
   display: none;
@@ -157,7 +157,7 @@ body main .adminColumn {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #96651b91;
+  background-color: #95bd8359;
   padding: 0 1em 2em;
   width: 85%;
 }
@@ -169,7 +169,7 @@ body main form {
   margin: 2em;
   align-items: flex-start;
   padding: 3em;
-  background-color: #96651b91;
+  background-color: #95bd8359;
   border-radius: 20%;
 }
 body main form section {

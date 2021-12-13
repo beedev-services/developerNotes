@@ -5,6 +5,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.index),
+    path('logReg/', views.logReg),
     path('login/', views.login),
     path('reg/', views.register),
     path('dashboard/', views.dashboard),
@@ -18,6 +19,8 @@ urlpatterns = [
     path('user/<int:user_id>/updateDiscord/', views.updateDiscord),
     path('user/<int:user_id>/updateProfileImg/', views.updateImage),
     path('theAdmin/', views.theAdmin),
+    path('theAdmin/allUsers', views.adminAllUsers),
+    path('theAdmin/allPosts', views.adminAllPosts),
     path('theAdmin/<int:user_id>/makeAdmin/', views.makeAdmin),
 ]
 if settings.DEBUG:

@@ -5,10 +5,32 @@ import bcrypt
 
 def index(request):
     if 'user_id' not in request.session:
+        notes = Note.objects.all().values()
+        context = {
+            'notes': notes,
+            'stacks': Stack.objects.all().values(),
+            'owner': User.objects.all().values(),
+        }
+        return render(request, 'index.html', context)
+    else:
+        user = User.objects.get(id=request.session['user_id'])
+        notes = Note.objects.all().values()
+        context = {
+            'user': user,
+            'notes': notes,
+            'stacks': Stack.objects.all().values(),
+            'owner': User.objects.all().values(),
+        }
+        print("Current User: ", user)
+        print("Notes :", notes)
+        return render(request, "dashboard.html", context)
+
+def logReg(request):
+    if 'user_id' not in request.session:
         context = {
             "user": User.objects.all().values()
         }
-        return render(request, 'index.html', context)
+        return render(request, 'logReg.html', context)
     else:
         user = User.objects.get(id=request.session['user_id'])
         context = {
@@ -102,6 +124,18 @@ def updateImage(request, user_id):
 
 def theAdmin(request):
     if 'user_id' not in request.session:
+        messages.error(request, "Please Log in")
+        return redirect('/logReg/')
+    else:
+        user = User.objects.get(id=request.session['user_id'])
+        if user.level == 9:
+            context = {
+                'user': user,
+            }
+            return render(request, 'admin/adminDash.html', context)
+
+def adminAllUsers(request):
+    if 'user_id' not in request.session:
         messages.error(request, "Please log in")
         return redirect('/')
     else:
@@ -110,8 +144,30 @@ def theAdmin(request):
         if user.level == 9:
             context = {
                 "users": users,
+                'user': user,
             }
-            return render (request, 'admin/adminDash.html', context)
+            return render (request, 'admin/allUsers.html', context)
+        else:
+            messages.error(request, "Access Denied to this page. Please see Admin")
+            return redirect('/')
+
+def adminAllPosts(request):
+    if 'user_id' not in request.session:
+        messages.error(request, "Please log in")
+        return redirect('/')
+    else:
+        user = User.objects.get(id=request.session['user_id'])
+        notes = Note.objects.all().values()
+        users = User.objects.all().values()
+        stacks = Stack.objects.all().values()
+        if user.level == 9:
+            context = {
+                'notes': notes,
+                'user': user,
+                'users': users,
+                'stacks': stacks,
+            }
+            return render(request, 'admin/allNotes.html', context)
         else:
             messages.error(request, "Access Denied to this page. Please see Admin")
             return redirect('/')
@@ -148,8 +204,15 @@ def createNote(request):
 
 def viewNote(request, note_id):
     if 'user_id' not in request.session:
-        messages.error(request, "Access Denied.")
-        return redirect('/')
+        note = Note.objects.get(id=note_id)
+        users = User.objects.all().values()
+        stacks = Stack.objects.all().values()
+        context = {
+            'note': note,
+            'users': users,
+            'stacks': stacks,
+        }
+        return render(request, 'altViewNote.html', context)
     else:
         note = Note.objects.get(id=note_id)
         users = User.objects.all().values()
@@ -159,9 +222,6 @@ def viewNote(request, note_id):
             'users': users,
             'stacks': stacks,
         }
-        print("the note: ", note)
-        print("all stacks: ", stacks)
-        print("all users: ", users)
         return render(request, 'viewNote.html', context)
 
 def likeNote(request, note_id):
@@ -169,3 +229,15 @@ def likeNote(request, note_id):
     toUpdate.upvote +=1
     toUpdate.save()
     return redirect('/dashboard')
+
+def editNote(request, note_id):
+    pass
+
+def adminEditNote(request, note_id):
+    pass
+
+def deleteNote(request, note_id):
+    pass
+
+def adminDeleteNote(request, note_id):
+    pass

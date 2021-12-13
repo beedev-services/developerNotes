@@ -13,9 +13,11 @@
 </head>
 <body>
     <header>
+        <h1>Welcome to Developer Notes</h1>
         <nav>
-            {% block menu %} {% include 'menu.html' %} {% endblock menu %}
+            {% block menu %} {% include 'menu.html' %} {% endblock menu %}{% block generalMenu %} {% include 'generalMenu.html' %} {% endblock generalMenu %}
         </nav>
+        <h3>Log in to post notes</h3>
     </header>
     <main>
         <div>
@@ -27,47 +29,266 @@
             </section>
             {% endif %}
         </div>
-        <div class="row">
-            <form action='/login/' method='post'>
-                {% csrf_token %}
-                <section>
-                    <label for='username'>Username</label>
-                    <input name='username' id='username' type='text'>
-                </section>
-                <section>
-                    <label for='password'>Password</label>
-                    <input name='password' id='password' type='password'>
-                </section>
-                <button>Sign In</button>
-            </form>
-            <form action='/reg/' method='post'>
-                {% csrf_token %}
-                <section>
-                    <label for='firstName'>First Name:</label>
-                    <input type='text' name='firstName' id='firstName'>
-                </section>
-                <section>
-                    <label for='lastName'>Last Name:</label>
-                    <input type='text' name='lastName' id='lastName'>
-                </section>
-                <section>
-                    <label for='username'>Username:</label>
-                    <input type='text' name='username' id='username'>
-                </section>
-                <section>
-                    <label form='email'>Email Address:</label>
-                    <input type='email' name='email' id='email'>
-                </section>
-                <section>
-                    <label for='password'>Password:</label>
-                    <input type='password' name='password' id='password'>
-                </section>
-                <section>
-                    <label for='confirm'>Confirm Password</label>
-                    <input type='password' name='confirm' id='confirm'>
-                </section>
-                <button>Submit and Login</button>
-            </form>
+        {% block tabMenu %} {% include 'tabMenu.html' %} {% endblock tabMenu %}
+        <div id='All' class='tabContent'>
+            <div class="innerContent">
+                <h1>All Public Notes</h1>
+                <div class="content">
+                    <table>
+                        <tr>
+                            <th>Likes</th>
+                            <th>Note Subject</th>
+                            <th>Note Stack</th>
+                            <th>Actions</th>
+                        </tr>
+                        {% for n in notes %}
+                            {% if n.private == 0 %}
+                                <tr>
+                                    <td>{{n.upvote}}</td>
+                                    <td>{{n.subject}}</td>
+                                    {% for s in stacks %}
+                                        {% if n.stack_id == s.id %}
+                                        <td>{{s.stackName}}</td>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <td>
+                                        <a href="/note/{{n.id}}/like/">Like</a> | 
+                                        <a href="/note/{{n.id}}/view/">View</a>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id='Web' class='tabContent'>
+            <div class="innerContent">
+                <h1>Web Fundamentals Public Notes</h1>
+                <div class="content">
+                    <table>
+                        <tr>
+                            <th>Likes</th>
+                            <th>Note Subject</th>
+                            <th>Content</th>
+                            <th>Actions</th>
+                        </tr>
+                        {% for n in notes %}
+                        {% if n.private == 0 %}
+                            {% if n.stack_id == 1 %}
+                                <tr>
+                                    <td>{{n.upvote}}</td>
+                                    <td>{{n.subject}}</td>
+                                    <td>{{n.content}}</td>
+                                    <td>
+                                        <a href="/note/{{n.id}}/like/">Like</a> | 
+                                        <a href="/note/{{n.id}}/view/">View</a>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id='Python' class='tabContent'>
+            <div class="innerContent">
+                <h1>Python Public Notes</h1>
+                <div class="content">
+                    <table>
+                        <tr>
+                            <th>Likes</th>
+                            <th>Note Subject</th>
+                            <th>Content</th>
+                            <th>Actions</th>
+                        </tr>
+                        {% for n in notes %}
+                        {% if n.private == 0 %}
+                            {% if n.stack_id == 2 %}
+                                <tr>
+                                    <td>{{n.upvote}}</td>
+                                    <td>{{n.subject}}</td>
+                                    <td>{{n.content}}</td>
+                                    <td>
+                                        <a href="/note/{{n.id}}/like/">Like</a> | 
+                                        <a href="/note/{{n.id}}/view/">View</a>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id='Mern' class='tabContent'>
+            <div class="innerContent">
+                <h1>MERN Public Notes</h1>
+                <div class="content">
+                    <table>
+                        <tr>
+                            <th>Likes</th>
+                            <th>Note Subject</th>
+                            <th>Content</th>
+                            <th>Actions</th>
+                        </tr>
+                        {% for n in notes %}
+                        {% if n.private == 0 %}
+                            {% if n.stack_id == 3 %}
+                                <tr>
+                                    <td>{{n.upvote}}</td>
+                                    <td>{{n.subject}}</td>
+                                    <td>{{n.content}}</td>
+                                    <td>
+                                        <a href="/note/{{n.id}}/like/">Like</a> | 
+                                        <a href="/note/{{n.id}}/view/">View</a>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id='Java' class='tabContent'>
+            <div class="innerContent">
+                <h1>Java Public Notes</h1>
+                <div class="content">
+                    <table>
+                        <tr>
+                            <th>Likes</th>
+                            <th>Note Subject</th>
+                            <th>Content</th>
+                            <th>Actions</th>
+                        </tr>
+                        {% for n in notes %}
+                        {% if n.private == 0 %}
+                            {% if n.stack_id == 4 %}
+                                <tr>
+                                    <td>{{n.upvote}}</td>
+                                    <td>{{n.subject}}</td>
+                                    <td>{{n.content}}</td>
+                                    <td>
+                                        <a href="/note/{{n.id}}/like/">Like</a> | 
+                                        <a href="/note/{{n.id}}/view/">View</a>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id='Projects' class='tabContent'>
+            <div class="innerContent">
+                <h1>Projects and Algos Public Notes</h1>
+                <div class="content">
+                    <table>
+                        <tr>
+                            <th>Likes</th>
+                            <th>Note Subject</th>
+                            <th>Content</th>
+                            <th>Actions</th>
+                        </tr>
+                        {% for n in notes %}
+                        {% if n.private == 0 %}
+                            {% if n.stack_id == 5 %}
+                                <tr>
+                                    <td>{{n.upvote}}</td>
+                                    <td>{{n.subject}}</td>
+                                    <td>{{n.content}}</td>
+                                    <td>
+                                        <a href="/note/{{n.id}}/like/">Like</a> | 
+                                        <a href="/note/{{n.id}}/view/">View</a>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id='Other' class='tabContent'>
+            <div class="innerContent">
+                <h1>Misc Developer Public Notes</h1>
+                <div class="content">
+                    <table>
+                        <tr>
+                            <th>Likes</th>
+                            <th>Note Subject</th>
+                            <th>Content</th>
+                            <th>Actions</th>
+                        </tr>
+                        {% for n in notes %}
+                        {% if n.private == 0 %}
+                            {% if n.stack_id == 6 %}
+                                <tr>
+                                    <td>{{n.upvote}}</td>
+                                    <td>{{n.subject}}</td>
+                                    <td>{{n.content}}</td>
+                                    <td>
+                                        <a href="/note/{{n.id}}/like/">Like</a> | 
+                                        <a href="/note/{{n.id}}/view/">View</a>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id='Your' class='tabContent'>
+            <div class="innerContent">
+                <h1>{{user.firstName}} Public and Private Notes</h1>
+                <div class="content">
+                    <table>
+                        <tr>
+                            <th>Likes</th>
+                            <th>Private</th>
+                            <th>Stack</th>
+                            <th>Note Subject</th>
+                            <th>Content</th>
+                            <th>Actions</th>
+                        </tr>
+                        {% for n in notes %}
+                        {% if n.author_id == user.id %}
+                                <tr>
+                                    <td>{{n.upvote}}</td>
+                                    {% if n.private == 0 %}
+                                        <td>No</td>
+                                    {% endif %}
+                                    {% if n.private == 1 %}
+                                        <td>Yes</td>
+                                    {% endif %}
+                                    {% for s in stacks %}
+                                        {% if n.stack_id == s.id %}
+                                        <td>{{s.stackName}}</td>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <td>{{n.subject}}</td>
+                                    <td>{{n.content}}</td>
+                                    {% if n.private == 0 %}
+                                        <td>
+                                            <a href="/note/{{n.id}}/like/">Like</a> | 
+                                            <a href="/note/{{n.id}}/view/">View</a>
+                                        </td>
+                                    {% endif %}
+                                    {% if n.private == 1 %}
+                                    <td>
+                                        <a href="/note/{{n.id}}/view/">View</a>
+                                    </td>
+                                    {% endif %}
+                                </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </table>
+                </div>
+            </div>
         </div>
     </main>
     <footer>
@@ -75,6 +296,6 @@
     </footer>
     <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src='{% static "js/script.js"%}'></script>
+    <script src='{% static "js/scripts.js"%}'></script>
 </body>
 </html>
