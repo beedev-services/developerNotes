@@ -28,7 +28,7 @@
                     {% endif %}
                 {% endfor %} Stack
             </h3>
-        <p>{{note.content}}</p>
+        <textarea disabled cols='30' rows='10'>{{note.content}}</textarea>
         {% if note.code %}
             <h3>Code Snippet</h3>
             <textarea id="copyCode" disabled class='code' cols="30" rows="10" value='{{note.code}}'>
