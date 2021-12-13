@@ -5,6 +5,9 @@
 @button: #09343f;
 @buttonShade: #1c9bbb34;
 @message: #ff000048;
+@black: #000;
+@codeFont: #dda337;
+@note: #dda3374b;
 
 .flexrow {
     display:  flex;
@@ -54,6 +57,10 @@ body {
     header {
         .flexcolumn();
 
+        img {
+            max-width: 90px;
+        }
+
         nav {
             a {
                 font-size: 1.1em;
@@ -67,7 +74,7 @@ body {
             .flexrow();
             justify-content: space-evenly;
             align-items: flex-start;
-
+            flex-wrap: wrap;
             width: 85%;
 
             form {
@@ -140,6 +147,65 @@ body {
             background-color: @shadeBg;
             padding: 0 1em 2em;
             width: 85%;
+        }
+        form {
+            .flexcolumn();
+            margin: 2em;
+            align-items: flex-start;
+            padding: 3em;
+            background-color: @shadeBg;
+            border-radius: 20%;
+
+
+            section {
+                .flexrow();
+                justify-content: space-between;
+                margin: .5em;
+                width: 85%;
+
+                label {
+                    align-items: flex-start;
+                    margin: .5em;
+                }
+                .code {
+                    background-color: @black;
+                    color: @codeFont;
+                }
+            }
+            button {
+                align-self: center;
+                background-color: @button;
+                color: @font;
+            }
+        }
+        .code {
+            background-color: @black;
+            color: @codeFont;
+            margin: 1em;
+        }
+        button {
+            align-self: center;
+            background-color: @button;
+            color: @font;
+        }
+        .note {
+            .flexcolumn();
+            background-color: @note;
+            padding: 2em;
+            min-width: 350px;
+        }
+        .center {
+            .flexrow();
+            background-color: @note;
+            padding: 2em;
+            min-width: 350px;;
+
+            p {
+                margin: 0 1em;
+            }
+            img {
+                max-width: 90px;
+            }
         }
     }
     footer {

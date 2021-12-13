@@ -64,6 +64,7 @@ class Note(models.Model):
     subject = models.CharField(max_length=255)
     content = models.TextField()
     private = models.BooleanField(default=False)
+    code = models.TextField(blank=True)
     upvote = models.IntegerField(default=0)
     resourceLink = models.CharField(max_length=255, blank=True)
     author = models.ForeignKey(User, related_name='noteUser', on_delete=CASCADE)
@@ -86,6 +87,7 @@ def create_note_upload(sender, instance, created, **kwargs):
 
 class Comment(models.Model):
     comment = models.TextField()
+    commentCode = models.TextField(blank=True)
     like = models.IntegerField()
     resourceUrl = models.CharField(max_length=255, blank=True)
     commenter = models.ForeignKey(User, related_name='commentUser', on_delete=CASCADE)

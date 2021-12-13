@@ -68,17 +68,37 @@ def dashboard(request):
         print("Notes :", notes)
         return render(request, "dashboard.html", context)
 
-def viewProfile(request):
-    pass
+def viewProfile(request, user_id):
+    if 'user_id' not in request.session:
+        messages.error(request, "Please log in")
+        return redirect('/')
+    else:
+        user = User.objects.get(id=request.session['user_id'])
+        context = {
+            'user': user,
+        }
+        return render(request, 'viewProfile.html', context)
 
-def updateProfile(request):
-    pass
+def updateUser(request, user_id):
+    toUpdate = User.objects.get(id=request.session['user_id'])
+    toUpdate.firstName = request.POST['firstName']
+    toUpdate.lastName = request.POST['lastName']
+    toUpdate.email = request.POST['email']
+    toUpdate.username = request.POST['username']
+    toUpdate.save()
+    return redirect(f'/user/{user.id}/viewProfile/')
 
-def viewUser(request):
-    pass
+def updateDiscord(request, user_id):
+    toUpdate = User.objects.get(id=request.session['user_id'])
+    toUpdate.profile.discord = request.POST['discord']
+    toUpdate.save()
+    return redirect(f'/user/{user.id}/viewProfile/')
 
-def updateUser(request):
-    pass
+def updateImage(request, user_id):
+    toUpdate = User.objects.get(id=request.session['user_id'])
+    toUpdate.profile.image = request.FILES['image']
+    toUpdate.save()
+    return redirect(f'/user/{user.id}/viewProfile/')
 
 def theAdmin(request):
     if 'user_id' not in request.session:
@@ -118,6 +138,7 @@ def createNote(request):
     Note.objects.create(
         subject=request.POST['subject'],
         content=request.POST['content'],
+        code=request.POST['code'],
         private=request.POST['private'],
         resourceLink=request.POST['resourceLink'],
         stack_id=request.POST['stack'],
@@ -142,9 +163,6 @@ def viewNote(request, note_id):
         print("all stacks: ", stacks)
         print("all users: ", users)
         return render(request, 'viewNote.html', context)
-
-def updateUpload(request):
-    pass
 
 def likeNote(request, note_id):
     toUpdate = Note.objects.get(id=note_id)

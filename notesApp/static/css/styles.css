@@ -54,6 +54,9 @@ body header {
   justify-content: center;
   align-items: center;
 }
+body header img {
+  max-width: 90px;
+}
 body header nav a {
   font-size: 1.1em;
 }
@@ -70,6 +73,7 @@ body main .row {
   align-items: center;
   justify-content: space-evenly;
   align-items: flex-start;
+  flex-wrap: wrap;
   width: 85%;
 }
 body main .row form {
@@ -156,6 +160,73 @@ body main .adminColumn {
   background-color: #96651b91;
   padding: 0 1em 2em;
   width: 85%;
+}
+body main form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 2em;
+  align-items: flex-start;
+  padding: 3em;
+  background-color: #96651b91;
+  border-radius: 20%;
+}
+body main form section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0.5em;
+  width: 85%;
+}
+body main form section label {
+  align-items: flex-start;
+  margin: 0.5em;
+}
+body main form section .code {
+  background-color: #000;
+  color: #dda337;
+}
+body main form button {
+  align-self: center;
+  background-color: #09343f;
+  color: #fff;
+}
+body main .code {
+  background-color: #000;
+  color: #dda337;
+  margin: 1em;
+}
+body main button {
+  align-self: center;
+  background-color: #09343f;
+  color: #fff;
+}
+body main .note {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #dda3374b;
+  padding: 2em;
+  min-width: 350px;
+}
+body main .center {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #dda3374b;
+  padding: 2em;
+  min-width: 350px;
+}
+body main .center p {
+  margin: 0 1em;
+}
+body main .center img {
+  max-width: 90px;
 }
 body footer {
   display: flex;

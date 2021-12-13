@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type='images/jpg' href="{% static 'images/bee.jpg' %}">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <link rel='stylesheet' href='https://beedevservices.github.io/beedev-css/framework/beedev.css'>
+    <link rel="stylesheet" href="{% static 'css/styles.css'%}">
+    <title>{{user.firstName}}' Profile</title>
+</head>
+<body>
+    <header>
+        <h1>{{user.firstName}}'s Profile Page</h1>
+        <img src="{{user.profile.image.url}}" alt="image avatar">
+        <nav>
+            {% block menu %} {% include 'menu.html' %} {% endblock menu %}{% block loggedMenu %} {% include 'loggedMenu.html' %} {% endblock loggedMenu %}
+        </nav>
+    </header>
+    <main>
+        <div class="note">
+            <h2>Your Current Information</h2>
+            <h3>{{user.firstName}} {{user.lastName}}</h3>
+            <h3>Your Username: {{user.username}}</h3>
+            <h3>{{user.email}}</h3>
+            {% if user.profile.discord %}
+                <h3>Discord Name: {{user.profile.discord}}</h3>
+            {% endif %}
+        </div>
+        <div class="center">
+            <p>Your current Profile Image: </p><img src="{{user.profile.image.url}}" alt="image avatar">
+        </div>
+        <div class="row">
+            <form action="/user/{{user.id}}/updateUser/" method='post'>
+                {% csrf_token %}
+                <section>
+                    <label for="firstName">First Name: </label>
+                    <input type="text" name="firstName" value='{{user.firstName}}'>
+                </section>
+                <section>
+                    <label for="lastName">Last Name: </label>
+                    <input type="text" name="lastName" value='{{user.lastName}}'>
+                </section>
+                <section>
+                    <label for="email">Email: </label>
+                    <input type="email" name="email" value='{{user.email}}'>
+                </section>
+                <section>
+                    <label for="username">Username: </label>
+                    <input type="text" name="username" value='{{user.username}}'>
+                </section>
+                <input type="hidden" value='{{user.id}}'>
+                <button>Update Information</button>
+            </form>
+            <form action="/user/{{user.id}}/updateDiscord/" method='post'>
+                {% csrf_token %}
+                <section>
+                    <label for="discord">Discord handle: </label>
+                    <input type="text" name="discord" value='{{user.profile.discord}}'>
+                </section>
+                <input type="hidden" value='{{user.id}}'>
+                <button>Add/Update Discord</button>
+            </form>
+            <form action="/user/{{user.id}}/updateProfileImg/" method='post' enctype='multipart/form-data'>
+                {% csrf_token %}
+                <section>
+                    <label for="file">Upload Image</label>
+                    <input type="file" name="image" required>
+                    <input type="hidden" value='{{user.id}}'>
+                </section>
+                <p>Current file name: {{user.profile.image}}</p>
+                <button>Upload/Update Profile Image</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+        {% block footer %} {% include 'footer.html' %} {% endblock footer %}
+    </footer>
+    <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src='{% static "js/scripts.js"%}'></script>
+</body>
+</html>

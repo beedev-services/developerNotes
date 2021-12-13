@@ -11,3 +11,11 @@ function openStack(evt, openStack) {
     document.getElementById(openStack).style.display = "block";
     evt.currentTarget.className += " active";
 }
+function copyCode() {
+    var copyText = document.getElementById('copyCode')
+    console.log(copyText)
+    copyText.select()
+    copyText.setSelectionRange(0, 99999)
+    navigator.clipboard.writeText(copyText.value)
+    alert("Copied the Code: " + copyText.value)
+}
