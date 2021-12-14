@@ -20,8 +20,11 @@ urlpatterns = [
     path('user/<int:user_id>/updateDiscord/', views.updateDiscord),
     path('user/<int:user_id>/updateProfileImg/', views.updateImage),
     path('theAdmin/', views.theAdmin),
-    path('theAdmin/allUsers', views.adminAllUsers),
-    path('theAdmin/allPosts', views.adminAllPosts),
+    path('theAdmin/allUsers/', views.adminAllUsers),
+    path('theAdmin/allPosts/', views.adminAllPosts),
+    path('theAdmin/note/<int:note_id>/edit/', views.adminEditNote),
+    path('theAdmin/note/<int:note_id>/update/', views.adminUpdateNote),
+    path('theAdmin/note/<int:note_id>/delete/', views.adminDeleteNote),
     path('theAdmin/<int:user_id>/makeAdmin/', views.makeAdmin),
 ]
 if settings.DEBUG:

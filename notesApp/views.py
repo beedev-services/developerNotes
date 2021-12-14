@@ -243,10 +243,43 @@ def updateNote(request, note_id):
     return redirect(f"/note/{toUpdate.id}/view/")
 
 def adminEditNote(request, note_id):
-    pass
+    if 'user_id' not in request.session:
+        messages.error(request, "Please log in")
+        return redirect('/')
+    else:
+        user = User.objects.get(id=request.session['user_id'])
+        note = Note.objects.get(id=note_id)
+        users = User.objects.all().values()
+        stacks = Stack.objects.all().values()
+        if user.level == 9:
+            context = {
+                'note': note,
+                'user': user,
+                'users': users,
+                'stacks': stacks,
+            }
+            return render(request, 'admin/editNote.html', context)
+        else:
+            messages.error(request, "Access Denied to this page. Please see Admin")
+            return redirect('/')    
+
+def adminUpdateNote(request, note_id):
+    toUpdate = Note.objects.get(id=note_id)
+    toUpdate.subject = request.POST['subject']
+    toUpdate.content = request.POST['content']
+    toUpdate.code = request.POST['code']
+    toUpdate.private = request.POST['private']
+    toUpdate.resourceLink = request.POST['resourceLink']
+    toUpdate.stack_id = request.POST['stack']
+    toUpdate.save()
+    return redirect(f"/theAdmin/note/{toUpdate.id}/edit")
 
 def deleteNote(request, note_id):
-    pass
+    toDelete = Note.objects.get(id=note_id)
+    toDelete.delete()
+    return redirect('/dashboard/')
 
 def adminDeleteNote(request, note_id):
-    pass
+    toDelete = Note.objects.get(id=note_id)
+    toDelete.delete()
+    return redirect('/theAdmin/allPosts/')
