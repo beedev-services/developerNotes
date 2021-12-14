@@ -108,19 +108,19 @@ def updateUser(request, user_id):
     toUpdate.email = request.POST['email']
     toUpdate.username = request.POST['username']
     toUpdate.save()
-    return redirect(f'/user/{user.id}/viewProfile/')
+    return redirect(f'/user/{toUpdate.id}/viewProfile/')
 
 def updateDiscord(request, user_id):
     toUpdate = User.objects.get(id=request.session['user_id'])
     toUpdate.profile.discord = request.POST['discord']
     toUpdate.save()
-    return redirect(f'/user/{user.id}/viewProfile/')
+    return redirect(f'/user/{toUpdate.id}/viewProfile/')
 
 def updateImage(request, user_id):
     toUpdate = User.objects.get(id=request.session['user_id'])
     toUpdate.profile.image = request.FILES['image']
     toUpdate.save()
-    return redirect(f'/user/{user.id}/viewProfile/')
+    return redirect(f'/user/{toUpdate.id}/viewProfile/')
 
 def theAdmin(request):
     if 'user_id' not in request.session:
@@ -211,6 +211,7 @@ def viewNote(request, note_id):
             'note': note,
             'users': users,
             'stacks': stacks,
+            'user': user,
         }
         return render(request, 'altViewNote.html', context)
     else:
@@ -230,8 +231,16 @@ def likeNote(request, note_id):
     toUpdate.save()
     return redirect('/dashboard')
 
-def editNote(request, note_id):
-    pass
+def updateNote(request, note_id):
+    toUpdate = Note.objects.get(id=note_id)
+    toUpdate.subject = request.POST['subject']
+    toUpdate.content = request.POST['content']
+    toUpdate.code = request.POST['code']
+    toUpdate.private = request.POST['private']
+    toUpdate.resourceLink = request.POST['resourceLink']
+    toUpdate.stack_id = request.POST['stack']
+    toUpdate.save()
+    return redirect(f"/note/{toUpdate.id}/view/")
 
 def adminEditNote(request, note_id):
     pass

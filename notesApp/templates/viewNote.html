@@ -41,6 +41,50 @@
         {% endif %}
         <p>{{note.author}} created this note. It has been liked or found useful {{note.upvote}} times</p>
         </div>
+        {% if note.user_id == user.id %}
+        <form action="/createNote/" method='post'>
+            {% csrf_token %}
+            <section>
+                <label for="subject">Subject: </label>
+                <input type="text" name="subject" value='{{note.subject}}'>
+            </section>
+            <section>
+                <label for="content">Note Content: </label>
+                <textarea name="content"cols="30" rows="10">{{note.content}}</textarea>
+            </section>
+            <section>
+                <label for="code">(Optional) Code block (use 4 spaces for tab): </label>
+                <textarea name="code" id="" cols="30" rows="10" class='code'>{{note.code}}</textarea>
+            </section>
+            <section>
+                <label for="private">Is this a Private Note? </label>
+                <span>Current Value {% if note.private == 0 %}
+                    Not private {% endif %} {% if note.private == 1 %} Private {% endif %}</span>
+                <select name="private">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </section>
+            <section>
+                <label for="resourceLink">(Optional) Resource Link</label>
+                <input type="text" name="resourceLink">
+            </section>
+            <section>
+                <label for="stack">Chose Stack:</label>
+                <span>{% for stack in stacks %}
+                    {% if note.stack_id == stack.id %}
+                        Current stack: {{stack.stackName}}
+                    {% endif %}
+                {% endfor %}</span>
+                <select name="stack">
+                    {% for stack in stacks %}
+                        <option value="{{stack.id}}">{{stack.stackName}}</option>
+                    {% endfor %}
+                </select>
+            </section>
+            <button>Update Note</button>
+        </form>
+        {% endif %}
     </main>
     <footer>
         {% block footer %} {% include 'footer.html' %} {% endblock footer %}

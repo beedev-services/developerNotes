@@ -14,6 +14,7 @@ urlpatterns = [
     path('createNote/', views.createNote),
     path('note/<int:note_id>/like/', views.likeNote),
     path('note/<int:note_id>/view/', views.viewNote),
+    path('note/<int:note_id>/update', views.updateNote),
     path('user/<int:user_id>/viewProfile/', views.viewProfile),
     path('user/<int:user_id>/updateUser/', views.updateUser),
     path('user/<int:user_id>/updateDiscord/', views.updateDiscord),
