@@ -52,12 +52,12 @@
             </section>
             <section>
                 <label for="stack">Chose Stack:</label>
+                <span>Current Stack: {% for stack in stacks %}
+                    {% if note.stack_id == stack.id %}
+                    <th>{{stack.stackName}}</th>
+                    {% endif %}
+                {% endfor %}</span>
                 <select name="stack">
-                    <span>Current Stack: {% for stack in stacks %}
-                        {% if note.stack_id == stack.id %}
-                        <th>{{stack.stackName}}</th>
-                        {% endif %}
-                    {% endfor %}</span>
                     {% for stack in stacks %}
                         <option value="{{stack.id}}">{{stack.stackName}}</option>
                     {% endfor %}

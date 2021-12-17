@@ -274,12 +274,12 @@
                                     {% if n.private == 0 %}
                                         <td>
                                             <a href="/note/{{n.id}}/like/">Like</a> | 
-                                            <a href="/note/{{n.id}}/view/">View</a>
+                                            <a href="/note/{{n.id}}/view/">View</a> | <a href="/note/{{n.id}}/edit/">Edit</a>
                                         </td>
                                     {% endif %}
                                     {% if n.private == 1 %}
                                     <td>
-                                        <a href="/note/{{n.id}}/view/">View</a>
+                                        <a href="/note/{{n.id}}/view/">View</a> | <a href="/note/{{n.id}}/edit/">Edit</a>
                                     </td>
                                     {% endif %}
                                 </tr>

@@ -19,7 +19,37 @@
         </nav>
     </header>
     <main>
-        
+        <h2>Comment on Notes</h2>
+        <table>
+            <tr>
+                <th>Note</th>
+                <th>Author</th>
+                <th>Stack</th>
+                <th>Note Likes</th>
+                <th>View Comments</th>
+                <th>Actions</th>
+            </tr>
+            {% for note in notes %}
+            {% if note.private == 0 %}
+                <tr>
+                    <td>{{note.subject}}</td>
+                    {% for user in users %}
+                        {% if note.author_id == user.id %}
+                            <td>{{user.username}}</td>
+                        {% endif %}
+                    {% endfor %}
+                    {% for stack in stacks %}
+                        {% if note.stack_id == stack.id %}
+                            <td>{{stack.stackName}}</td>
+                        {% endif %}
+                    {% endfor %}
+                    <td>{{note.upvote}}</td>
+                    <td><a href="/theAdmin/comment/{{note.id}}/view/">View Comments</a></td>
+                    <td><a href="/theAdmin/comment/{{note.id}}/add/">Add Comment</a></td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+        </table>
     </main>
     <footer>
         {% block footer %} {% include 'footer.html' %} {% endblock footer %}

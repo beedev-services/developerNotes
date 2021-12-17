@@ -39,6 +39,14 @@
         {% if note.resourceLink %}
             <a href="{{note.resourceLink}}" target="_blank"> Resource Link</a>
         {% endif %}
+        {% if note.upload.uploadName %}
+                <img src="{{note.upload.upload.url}}" alt="{{note.upload.uploadName" id='img'>
+                <button><a href="{{note.upload.upload}}" download>Download Image</a></button>
+                <div id="theModal" class="modal">
+                    <span class="close">&times;</span>
+                    <img class="modalContent" id="theImg">
+                </div>
+            {% endif %}
         <p>{{note.author}} created this note. It has been liked or found useful {{note.upvote}} times</p>
         </div>
     </main>

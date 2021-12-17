@@ -122,16 +122,121 @@ def updateImage(request, user_id):
     toUpdate.save()
     return redirect(f'/user/{toUpdate.id}/viewProfile/')
 
+def addNote(request):
+    if 'user_id' not in request.session:
+        messages.error(request, 'Please log in')
+        return redirect('/')
+    else:
+        user = User.objects.get(id=request.session['user_id'])
+        context = {
+            'user': user,
+            'stacks': Stack.objects.all(),
+        }
+        return render(request, 'addNote.html', context)
+
+def createNote(request):
+    Note.objects.create(
+        subject=request.POST['subject'],
+        content=request.POST['content'],
+        code=request.POST['code'],
+        private=request.POST['private'],
+        resourceLink=request.POST['resourceLink'],
+        stack_id=request.POST['stack'],
+        author=User.objects.get(id=request.session['user_id']),
+    )
+    return redirect('/dashboard/')
+
+def viewNote(request, note_id):
+    if 'user_id' not in request.session:
+        note = Note.objects.get(id=note_id)
+        users = User.objects.all().values()
+        stacks = Stack.objects.all().values()
+        context = {
+            'note': note,
+            'users': users,
+            'stacks': stacks,
+            'user': user,
+        }
+        return render(request, 'altViewNote.html', context)
+    else:
+        note = Note.objects.get(id=note_id)
+        users = User.objects.all().values()
+        stacks = Stack.objects.all().values()
+        user = User.objects.get(id=request.session['user_id'])
+        context = {
+            'note': note,
+            'users': users,
+            'stacks': stacks,
+            'user': user,
+        }
+        return render(request, 'viewNote.html', context)
+
+def likeNote(request, note_id):
+    toUpdate = Note.objects.get(id=note_id)
+    toUpdate.upvote +=1
+    toUpdate.save()
+    return redirect('/dashboard')
+
+def editNote(request, note_id):
+    if 'user_id' not in request.session:
+        messages.error(request, "Please log in")
+        return redirect('/')
+    else:
+        user = User.objects.get(id=request.session['user_id'])
+        note = Note.objects.get(id=note_id)
+        users = User.objects.all().values()
+        stacks = Stack.objects.all().values()
+        context = {
+            'note': note,
+            'user': user,
+            'users': users,
+            'stacks': stacks,
+        }
+        return render(request, 'editNote.html', context)
+
+def updateNote(request, note_id):
+    toUpdate = Note.objects.get(id=note_id)
+    toUpdate.subject = request.POST['subject']
+    toUpdate.content = request.POST['content']
+    toUpdate.code = request.POST['code']
+    toUpdate.private = request.POST['private']
+    toUpdate.resourceLink = request.POST['resourceLink']
+    toUpdate.stack_id = request.POST['stack']
+    toUpdate.save()
+    return redirect(f"/note/{toUpdate.id}/view/")
+
+def deleteNote(request, note_id):
+    toDelete = Note.objects.get(id=note_id)
+    toDelete.delete()
+    return redirect('/dashboard/')
+
+def uploadNote(request, note_id):
+    toUpdate = Note.objects.get(id=note_id)
+    toUpdate.upload.uploadName = request.POST['uploadName']
+    toUpdate.upload.upload = request.FILES['upload']
+    toUpdate.save()
+    return redirect(f'/note/{toUpdate.id}/view')
+
+
 def theAdmin(request):
     if 'user_id' not in request.session:
         messages.error(request, "Please Log in")
         return redirect('/logReg/')
     else:
         user = User.objects.get(id=request.session['user_id'])
+        notes = Note.objects.all().values()
+        comments = Comment.objects.all().count()
+        users = User.objects.all().values()
+        stacks = Stack.objects.all().values()
         if user.level == 9:
             context = {
                 'user': user,
+                'notes': notes,
+                'comments': comments,
+                'users': users,
+                'stacks': stacks,
             }
+            print(comments)
             return render(request, 'admin/adminDash.html', context)
 
 def adminAllUsers(request):
@@ -178,70 +283,6 @@ def makeAdmin(request, user_id):
     toUpdate.save()
     return redirect('/theAdmin/allUsers/')
 
-def addNote(request):
-    if 'user_id' not in request.session:
-        messages.error(request, 'Please log in')
-        return redirect('/')
-    else:
-        user = User.objects.get(id=request.session['user_id'])
-        context = {
-            'user': user,
-            'stacks': Stack.objects.all(),
-        }
-        return render(request, 'addNote.html', context)
-
-def createNote(request):
-    Note.objects.create(
-        subject=request.POST['subject'],
-        content=request.POST['content'],
-        code=request.POST['code'],
-        private=request.POST['private'],
-        resourceLink=request.POST['resourceLink'],
-        stack_id=request.POST['stack'],
-        author=User.objects.get(id=request.session['user_id']),
-    )
-    return redirect('/dashboard/')
-
-def viewNote(request, note_id):
-    if 'user_id' not in request.session:
-        note = Note.objects.get(id=note_id)
-        users = User.objects.all().values()
-        stacks = Stack.objects.all().values()
-        context = {
-            'note': note,
-            'users': users,
-            'stacks': stacks,
-            'user': user,
-        }
-        return render(request, 'altViewNote.html', context)
-    else:
-        note = Note.objects.get(id=note_id)
-        users = User.objects.all().values()
-        stacks = Stack.objects.all().values()
-        context = {
-            'note': note,
-            'users': users,
-            'stacks': stacks,
-        }
-        return render(request, 'viewNote.html', context)
-
-def likeNote(request, note_id):
-    toUpdate = Note.objects.get(id=note_id)
-    toUpdate.upvote +=1
-    toUpdate.save()
-    return redirect('/dashboard')
-
-def updateNote(request, note_id):
-    toUpdate = Note.objects.get(id=note_id)
-    toUpdate.subject = request.POST['subject']
-    toUpdate.content = request.POST['content']
-    toUpdate.code = request.POST['code']
-    toUpdate.private = request.POST['private']
-    toUpdate.resourceLink = request.POST['resourceLink']
-    toUpdate.stack_id = request.POST['stack']
-    toUpdate.save()
-    return redirect(f"/note/{toUpdate.id}/view/")
-
 def adminEditNote(request, note_id):
     if 'user_id' not in request.session:
         messages.error(request, "Please log in")
@@ -274,12 +315,66 @@ def adminUpdateNote(request, note_id):
     toUpdate.save()
     return redirect(f"/theAdmin/note/{toUpdate.id}/edit")
 
-def deleteNote(request, note_id):
-    toDelete = Note.objects.get(id=note_id)
-    toDelete.delete()
-    return redirect('/dashboard/')
-
 def adminDeleteNote(request, note_id):
     toDelete = Note.objects.get(id=note_id)
     toDelete.delete()
     return redirect('/theAdmin/allPosts/')
+
+def adminDeleteUser(request, user_id):
+    toDelete = User.objects.get(id=user_id)
+    toDelete.delete()
+    return redirect('/theAdmin/allUsers/')
+
+def adminAddComment(request, note_id):
+    if 'user_id' not in request.session:
+        messages.error(request, "Please log in")
+        return redirect('/')
+    else:
+        user = User.objects.get(id=request.session['user_id'])
+        note = Note.objects.get(id=note_id)
+        users = User.objects.all().values()
+        stacks = Stack.objects.all().values()
+        if user.level == 9:
+            context = {
+                'note': note,
+                'user': user,
+                'users': users,
+                'stacks': stacks,
+            }
+            return render(request, 'admin/addComment.html', context)
+        else:
+            messages.error(request, "Access Denied to this page. Please see Admin")
+            return redirect('/')   
+
+def adminMakeComment(request, note_id):
+    Comment.objects.create(
+        comment=request.POST['comment'],
+        commentCode=request.POST['commentCode'],
+        resourceUrl=request.POST['resourceUrl'],
+        commenter=User.objects.get(id=request.session['user_id']),
+        note=Note.objects.get(id=note_id),
+    )
+    return redirect('/theAdmin/')
+
+def adminViewComment(request, note_id):
+    if 'user_id' not in request.session:
+        messages.error(request, "Please log in")
+        return redirect('/')
+    else:
+        user = User.objects.get(id=request.session['user_id'])
+        note = Note.objects.get(id=note_id)
+        comments = Comment.objects.all().values()
+        users = User.objects.all().values()
+        stacks = Stack.objects.all().values()
+        if user.level == 9:
+            context = {
+                'note': note,
+                'user': user,
+                'users': users,
+                'stacks': stacks,
+                'comments': comments,
+            }
+            return render(request, 'admin/viewComments.html', context)
+        else:
+            messages.error(request, "Access Denied to this page. Please see Admin")
+            return redirect('/') 

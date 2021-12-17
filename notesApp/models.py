@@ -72,7 +72,6 @@ class Note(models.Model):
     def __str__(self):
         return self.subject
 
-
 class Upload(models.Model):
     uploadName = models.CharField(max_length=255, blank=True)
     upload = models.FileField(upload_to='docs', default='bee.jpg')
@@ -88,7 +87,7 @@ def create_note_upload(sender, instance, created, **kwargs):
 class Comment(models.Model):
     comment = models.TextField()
     commentCode = models.TextField(blank=True)
-    like = models.IntegerField()
+    like = models.IntegerField(default=0)
     resourceUrl = models.CharField(max_length=255, blank=True)
     commenter = models.ForeignKey(User, related_name='commentUser', on_delete=CASCADE)
     note = models.ForeignKey(Note, related_name='commentNote', on_delete=CASCADE)

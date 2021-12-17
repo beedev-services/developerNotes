@@ -28,20 +28,28 @@
                     {% endif %}
                 {% endfor %} Stack
             </h3>
-        <textarea disabled cols='30' rows='10'>{{note.content}}</textarea>
-        {% if note.code %}
-            <h3>Code Snippet</h3>
-            <textarea id="copyCode" disabled class='code' cols="30" rows="10" value='{{note.code}}'>
-                {{note.code}}
-            </textarea>
-            <button onclick='copyCode()'>Copy code</button>
-        {% endif %}
-        {% if note.resourceLink %}
-            <a href="{{note.resourceLink}}" target="_blank"> Resource Link</a>
-        {% endif %}
-        <p>{{note.author}} created this note. It has been liked or found useful {{note.upvote}} times</p>
+            <textarea disabled cols='30' rows='10'>{{note.content}}</textarea>
+            {% if note.code %}
+                <h3>Code Snippet</h3>
+                <textarea id="copyCode" disabled class='code' cols="30" rows="10" value='{{note.code}}'>
+                    {{note.code}}
+                </textarea>
+                <button onclick='copyCode()'>Copy code</button>
+            {% endif %}
+            {% if note.resourceLink %}
+                <a href="{{note.resourceLink}}" target="_blank"> Resource Link</a>
+            {% endif %}
+            {% if note.upload.uploadName %}
+                <img src="{{note.upload.upload.url}}" alt="{{note.upload.uploadName" id='img'>
+                <button><a href="{{note.upload.upload}}" download>Download Image</a></button>
+                <div id="theModal" class="modal">
+                    <span class="close">&times;</span>
+                    <img class="modalContent" id="theImg">
+                </div>
+            {% endif %}
+            <p>{{note.author}} created this note. It has been liked or found useful {{note.upvote}} times</p>
         </div>
-        {% if note.user_id == user.id %}
+        {% if author_id == user.id %}
         <form action="/createNote/" method='post'>
             {% csrf_token %}
             <section>

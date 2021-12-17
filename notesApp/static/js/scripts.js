@@ -19,3 +19,16 @@ function copyCode() {
     navigator.clipboard.writeText(copyText.value)
     alert("Copied the Code: " + copyText.value)
 }
+var modal = document.getElementById("theModal");
+var img = document.getElementById("img");
+var modalImg = document.getElementById("theImg");
+img.onclick = function(){
+    console.log(modalImg.src)
+    modal.style.display = "block";
+    modalImg.src = this.src;
+}
+var span = document.getElementsByClassName("close")[0];
+
+span.onclick = function() { 
+    modal.style.display = "none";
+}
