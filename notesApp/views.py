@@ -155,7 +155,7 @@ def viewNote(request, note_id):
             'note': note,
             'users': users,
             'stacks': stacks,
-            'user': user,
+            'users': users,
         }
         return render(request, 'altViewNote.html', context)
     else:
